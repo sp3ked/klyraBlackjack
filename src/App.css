@@ -1,0 +1,81 @@
+/* Custom animations */
+
+@keyframes dealCard {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+.deal-animation {
+  animation: dealCard 0.3s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.pulse-button {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Table layout */
+.table-area {
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+
+/* Chip styles */
+.chip {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px dashed white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chip-red {
+  background-color: #e53e3e;
+}
+
+.chip-blue {
+  background-color: #3182ce;
+}
+
+.chip-green {
+  background-color: #38a169;
+}
+
+.chip-black {
+  background-color: #1a202c;
+}
