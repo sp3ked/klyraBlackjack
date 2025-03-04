@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, DollarSign } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,7 +11,6 @@ const Navbar = () => {
     // Hardcoded user data for now
     const user = {
         name: 'Player 1',
-        balance: 1000,
         avatar: 'https://i.pravatar.cc/150?img=3',
         isLoggedIn: true
     };
@@ -44,13 +43,13 @@ const Navbar = () => {
     // Get link classes based on active state
     const getLinkClasses = (path) => {
         return `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive(path)
-                ? 'text-casino-gold bg-gray-800'
-                : 'text-white hover:text-casino-gold'
+            ? 'text-casino-gold bg-gray-800'
+            : 'text-white hover:text-casino-gold'
             }`;
     };
 
     return (
-        <nav className="bg-casino-black border-b border-casino-gold shadow-lg">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-casino-black border-b border-casino-gold shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
@@ -69,8 +68,8 @@ const Navbar = () => {
                             <button
                                 onClick={() => setIsGamesMenuOpen(!isGamesMenuOpen)}
                                 className={`flex items-center ${isActive('/blackjack') || isActive('/roulette') || isActive('/slots') || isActive('/poker')
-                                        ? 'text-casino-gold bg-gray-800'
-                                        : 'text-white hover:text-casino-gold'
+                                    ? 'text-casino-gold bg-gray-800'
+                                    : 'text-white hover:text-casino-gold'
                                     } px-3 py-2 rounded-md text-sm font-medium transition-colors`}
                             >
                                 Games <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isGamesMenuOpen ? 'rotate-180' : ''}`} />
@@ -82,8 +81,8 @@ const Navbar = () => {
                                         <Link
                                             to="/blackjack"
                                             className={`block px-4 py-2 text-sm ${isActive('/blackjack')
-                                                    ? 'bg-casino-gold text-casino-black font-bold'
-                                                    : 'text-white hover:bg-casino-gold hover:text-casino-black'
+                                                ? 'bg-casino-gold text-casino-black font-bold'
+                                                : 'text-white hover:bg-casino-gold hover:text-casino-black'
                                                 }`}
                                         >
                                             Blackjack
@@ -118,22 +117,16 @@ const Navbar = () => {
                         </Link>
                     </div>
 
-                    {/* User Balance */}
+                    {/* User Avatar */}
                     <div className="hidden md:flex md:items-center">
                         {user.isLoggedIn && (
-                            <div className="flex items-center space-x-4">
-                                <div className="flex items-center bg-casino-black border border-casino-gold rounded-full px-3 py-1">
-                                    <DollarSign className="h-4 w-4 text-casino-gold" />
-                                    <span className="text-white text-sm font-medium ml-1">{user.balance}</span>
-                                </div>
-                                <div className="flex items-center">
-                                    <img
-                                        src={user.avatar}
-                                        alt="User avatar"
-                                        className="h-8 w-8 rounded-full border-2 border-casino-gold"
-                                    />
-                                    <span className="ml-2 text-white text-sm font-medium">{user.name}</span>
-                                </div>
+                            <div className="flex items-center">
+                                <img
+                                    src={user.avatar}
+                                    alt="User avatar"
+                                    className="h-8 w-8 rounded-full border-2 border-casino-gold"
+                                />
+                                <span className="ml-2 text-white text-sm font-medium">{user.name}</span>
                             </div>
                         )}
                     </div>
@@ -206,20 +199,14 @@ const Navbar = () => {
                         </Link>
 
                         {user.isLoggedIn && (
-                            <>
-                                <div className="flex items-center px-3 py-2">
-                                    <img
-                                        src={user.avatar}
-                                        alt="User avatar"
-                                        className="h-8 w-8 rounded-full border-2 border-casino-gold"
-                                    />
-                                    <span className="ml-2 text-white text-sm font-medium">{user.name}</span>
-                                </div>
-                                <div className="flex items-center px-3 py-2">
-                                    <DollarSign className="h-4 w-4 text-casino-gold" />
-                                    <span className="text-white text-sm font-medium ml-1">{user.balance}</span>
-                                </div>
-                            </>
+                            <div className="flex items-center px-3 py-2">
+                                <img
+                                    src={user.avatar}
+                                    alt="User avatar"
+                                    className="h-8 w-8 rounded-full border-2 border-casino-gold"
+                                />
+                                <span className="ml-2 text-white text-sm font-medium">{user.name}</span>
+                            </div>
                         )}
                     </div>
                 </div>
