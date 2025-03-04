@@ -4,7 +4,8 @@
 This is a poor representation of what I can do btu I have alot of hw to do after being in denver.
 Checkout my other projects -
 [www.cosmospool.xyz](https://www.cosmospool.xyz/) (ethdenver project)
-[www.boilerblockchain.com](https://www.boilerblockchain.org/)
+
+[www.boilerblockchain.com](https://www.boilerblockchain.org/) (club website)
 
 
 A modern, interactive Blackjack game built with React, Vite, and Tailwind CSS. This project demonstrates the use of the qrandom.io API for card shuffling and dealing.
