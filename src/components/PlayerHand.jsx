@@ -1,43 +1,63 @@
 import React from 'react';
 import Card from './Card';
-import { calculateHandValue, isBusted, hasNaturalBlackjack } from '../utils/gameLogic';
+import { motion } from 'framer-motion';
+import { calculateHandValue } from '../utils/gameLogic';
 
 const PlayerHand = ({ cards = [], isGameOver = false }) => {
   const handValue = calculateHandValue(cards);
-  const busted = isBusted(cards);
-  const hasBlackjack = hasNaturalBlackjack(cards);
-  
-  // Determine value display style
-  const getValueStyle = () => {
-    if (busted) return 'bg-red-600 text-white';
-    if (hasBlackjack) return 'bg-yellow-400 text-black';
-    return 'bg-blue-100 text-blue-800';
-  };
+
+  // Determine if the hand is busted or has blackjack
+  const isBusted = handValue > 21;
+  const hasBlackjack = handValue === 21 && cards.length === 2;
+
+  // Determine the status text and style
+  let statusText = '';
+  let statusClass = '';
+
+  if (isBusted) {
+    statusText = 'BUST!';
+    statusClass = 'text-casino-red';
+  } else if (hasBlackjack) {
+    statusText = 'BLACKJACK!';
+    statusClass = 'text-casino-gold';
+  }
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center mb-2">
-        <h2 className="text-xl font-bold text-white mr-4">Your Hand</h2>
-        
-        {cards.length > 0 && (
-          <div className={`px-3 py-1 rounded-full font-bold ${getValueStyle()}`}>
-            {handValue}
-            {hasBlackjack && cards.length === 2 && ' (Blackjack!)'}
-            {busted && ' (Bust!)'}
-          </div>
-        )}
-      </div>
-      
-      <div className="flex flex-wrap gap-2 justify-center">
+    <div className="flex flex-col items-center mb-4">
+      <div className="text-white text-lg mb-2">Your Hand: {handValue}</div>
+
+      {/* Status display */}
+      {statusText && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`font-bold text-xl mb-2 ${statusClass}`}
+        >
+          {statusText}
+        </motion.div>
+      )}
+
+      {/* Cards display */}
+      <div className="relative h-40 flex justify-center items-center" style={{ minWidth: '300px' }}>
         {cards.map((card, index) => (
-          <div key={`player-card-${index}`} className="transform transition-transform hover:scale-105">
-            <Card 
-              card={card} 
-              animationDelay={index * 100} 
-            />
-          </div>
+          <motion.div
+            key={`player-card-${index}`}
+            initial={{ opacity: 0, y: 50, rotateY: 180 }}
+            animate={{ opacity: 1, y: 0, rotateY: 0 }}
+            transition={{
+              delay: index * 0.2,
+              duration: 0.5
+            }}
+            style={{
+              position: 'absolute',
+              left: `calc(50% - 48px + ${index * 30}px)`,
+              zIndex: index
+            }}
+          >
+            <Card card={card} hidden={false} />
+          </motion.div>
         ))}
-        
+
         {cards.length === 0 && (
           <div className="text-white italic">
             No cards yet. Start a new game!

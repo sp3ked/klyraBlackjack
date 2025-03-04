@@ -3,24 +3,24 @@ const API_BASE_URL = 'https://qrandom.io/api/random';
 
 /**
  * Fetch a shuffled deck from the API
- * @param {number} deckCount - Number of decks to shuffle (default: 1)
+ * @param {number} deckCount - Number of decks to shuffle (default: 6)
  * @param {number} initialCards - Number of cards to return initially (default: all)
  * @returns {Promise<Object>} - The deck data including cards and metadata
  */
-export const fetchShuffledDeck = async (deckCount = 1, initialCards = null) => {
+export const fetchShuffledDeck = async (deckCount = 6, initialCards = null) => {
   try {
     let url = `${API_BASE_URL}/deck?decks=${deckCount}`;
-    
+
     if (initialCards) {
       url += `&cards=${initialCards}`;
     }
-    
+
     const response = await fetch(url);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch deck: ${response.status} ${response.statusText}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error fetching deck:', error);
@@ -36,11 +36,11 @@ export const fetchShuffledDeck = async (deckCount = 1, initialCards = null) => {
 export const getAllCards = async (resultId) => {
   try {
     const response = await fetch(`${API_BASE_URL}/deck/${resultId}/all`);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch all cards: ${response.status} ${response.statusText}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error fetching all cards:', error);
@@ -57,11 +57,11 @@ export const getAllCards = async (resultId) => {
 export const getCardAtIndex = async (resultId, index) => {
   try {
     const response = await fetch(`${API_BASE_URL}/deck/${resultId}/show?at=${index}`);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch card: ${response.status} ${response.statusText}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error fetching card:', error);
@@ -71,15 +71,15 @@ export const getCardAtIndex = async (resultId, index) => {
 
 /**
  * Fallback function to create a shuffled deck client-side if API fails
- * @param {number} deckCount - Number of decks to shuffle
+ * @param {number} deckCount - Number of decks to shuffle (default: 6)
  * @returns {Object} - A simulated deck response
  */
-export const createFallbackDeck = (deckCount = 1) => {
+export const createFallbackDeck = (deckCount = 6) => {
   const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
   const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
-  
+
   let allCards = [];
-  
+
   // Create the specified number of decks
   for (let d = 0; d < deckCount; d++) {
     for (const suit of suits) {
@@ -88,13 +88,13 @@ export const createFallbackDeck = (deckCount = 1) => {
       }
     }
   }
-  
+
   // Shuffle the cards (Fisher-Yates algorithm)
   for (let i = allCards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
   }
-  
+
   // Create a simulated response object
   return {
     id: `fallback-deck-${Date.now()}`,
