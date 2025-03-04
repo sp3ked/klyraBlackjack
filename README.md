@@ -1,14 +1,16 @@
-hello,
+hey,
 
-This is a poor representation of what I can do but I have alot of hw to do after being in denver.
+this is a poor representation of what I can do but I have alot of hw to do after being in denver.
 
-Checkout my other projects -
+checkout my other projects -
 
 [www.cosmospool.xyz](https://www.cosmospool.xyz/) (ethdenver project)
 
 [www.boilerblockchain.com](https://www.boilerblockchain.org/) (club website)
 
+Also here is my personal website -
 
+[jkok.dev](https://jkok.dev/)
 
 
 
